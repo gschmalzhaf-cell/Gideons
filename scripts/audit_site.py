@@ -25,8 +25,11 @@ def main():
         features = p.get("features") or []
         if len(features) < 3:
             findings.append("**%s**: nur %d Feature(s) – Feature-Liste aus dem Repo-README ergaenzen" % (name, len(features)))
-        if not (p.get("screenshots") or []):
-            findings.append("**%s**: keine Screenshots – Bilder aus dem Repo (z. B. docs/assets) uebernehmen oder eigene aufnehmen und unter assets/screenshots/ ablegen" % name)
+        icon = p.get("app_icon") or ""
+        if not icon:
+            findings.append("**%s**: kein App-Icon hinterlegt – Icon aus dem Repo (z. B. mipmap / design/app-icon / packaging) unter assets/icons/ ablegen" % name)
+        elif not (ROOT / icon).exists():
+            findings.append("**%s**: App-Icon-Datei fehlt im Repo: %s" % (name, icon))
         if not p.get("website"):
             findings.append("**%s**: keine Website verlinkt – Repo-Homepage oder Demo-Seite nachtragen" % name)
         if not str(p.get("repo", "")).startswith("https://github.com/"):
@@ -57,7 +60,7 @@ def main():
     lines.append("- [ ] OG-Image (og:image) hinterlegen, damit Links in sozialen Medien eine Vorschaukarte zeigen")
     lines.append("- [ ] Lighthouse-Audit (Performance, Accessibility, SEO) durchfuehren und Ergebnisse umsetzen")
     lines.append("- [ ] Eigenen Domain-Namen (CNAME) fuer die Pages-Seite einrichten")
-    lines.append("- [ ] Screenshots der uebrigen Apps nachtragen, sobald verfuegbar")
+    lines.append("- [ ] App-Icons bei Rebranding aktualisieren (Quelle: jeweiliges Projekt-Repo)")
     lines.append("- [ ] Projekt-Kacheln um Release-Version oder Sterne ergaenzen")
     lines.append("- [ ] Dunkel/Hell-Wechsel als manueller Schalter (aktuell nur prefers-color-scheme)")
     lines.append("")

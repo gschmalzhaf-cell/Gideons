@@ -30,7 +30,11 @@
       <div class="grid">
         {% for project in site.data.projects %}
         <article class="card">
+          {% if project.app_icon and project.app_icon != "" %}
+          <img class="card-icon-img" src="{{ project.app_icon | relative_url }}" alt="{{ project.name }} – App-Icon" loading="lazy">
+          {% else %}
           <div class="card-icon" aria-hidden="true">{{ project.icon }}</div>
+          {% endif %}
           <h2>{{ project.name }}</h2>
           <p>{{ project.description }}</p>
           <div class="card-footer">
