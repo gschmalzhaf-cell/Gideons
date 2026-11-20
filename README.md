@@ -19,5 +19,16 @@ Die Seite wird mit Jekyll von GitHub Pages gebaut (Quelle: Branch `gh-pages`, Pf
 Änderungen auf `main` vornehmen und nach `gh-pages` pushen –
 der Push löst automatisch einen neuen Pages-Build aus.
 
-Die Projektliste liegt in [`_data/projects.yml`](_data/projects.yml) –
-einfach einen Eintrag hinzufügen, um ein neues Projekt aufzunehmen.
+- `_data/projects.yml` – alle Projektdaten (inkl. `slug`, `long_description`, `features`, `screenshots`)
+- `_layouts/project.html` + `projekte/<slug>/index.html` – Detailseite pro Projekt
+- `assets/screenshots/` – Screenshots der Apps (z. B. aus `docs/assets` der Repos)
+- `index.html` – Startseite mit Projekt-Kacheln
+
+## Automatisierung
+
+- `.github/workflows/update-projects.yml` – läuft **montags 07:00 UTC** (manuell via *Actions → Run workflow*):
+  `scripts/update_projects.py` listet alle öffentlichen Repos des Users, ergänzt neue automatisch
+  in `_data/projects.yml` und pusht nach `gh-pages`. Lokal testbar: `python scripts/update_projects.py --dry-run`
+- `.github/workflows/optimization-suggestions.yml` – läuft **am 1. des Monats, 09:00 UTC**:
+  `scripts/audit_site.py` prüft die Seite auf Lücken (fehlende Beschreibungen, Features, Screenshots,
+  Detailseiten) und legt das Ergebnis als Issue ab bzw. kommentiert das bestehende `[Optimierung]`-Issue
