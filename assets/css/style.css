@@ -141,6 +141,15 @@ a:focus-visible,
   margin-bottom: 0.9rem;
 }
 
+.card-icon-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: contain;
+  margin-bottom: 0.9rem;
+  background: rgba(127, 127, 127, 0.08);
+}
+
 .card h2 {
   margin: 0 0 0.5rem;
   font-size: 1.3rem;
@@ -232,6 +241,14 @@ a:focus-visible,
   margin: 0;
 }
 
+.detail-icon-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  object-fit: contain;
+  background: rgba(127, 127, 127, 0.08);
+}
+
 .detail-head h1 {
   margin: 0 0 0.6rem;
   font-size: clamp(1.7rem, 4vw, 2.3rem);
@@ -264,21 +281,4 @@ a:focus-visible,
   margin-bottom: 0.55rem;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-}
 
-.gallery img {
-  display: block;
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  transition: border-color 0.18s ease, transform 0.18s ease;
-}
-
-.gallery a:hover img {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}

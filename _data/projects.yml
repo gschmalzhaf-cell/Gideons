@@ -1,6 +1,7 @@
 - name: Gideon's Bücherwelt
   icon: "📚"
   slug: buecherwelt
+  app_icon: "assets/icons/buecherwelt/icon.png"
   description: "Deine persönliche Bücherwelt: Bücher erfassen, ordnen und bewerten – damit kein gutes Buch mehr verloren geht."
   long_description: "Android-App (Kotlin + Jetpack Compose, MVVM) zur Verwaltung deiner persönlichen Bibliothek und zum Entdecken neuer Bücher. 100 % lokal (Room + DataStore) und offline-fähig – Netzwerk wird nur für ISBN-Abfragen (Google Books / Open Library), Cover-Downloads und optionale LLM-Aufrufe genutzt."
   features:
@@ -10,7 +11,6 @@
     - "Entdecken: regelbasierte und LLM-Empfehlungen mit Begründung, KI-Re-Ranking, „Ähnliche Bücher“ pro Buch und Merkliste"
     - "Optionale KI-Features: semantische Freitext-Suche („düstere Bücher mit Happy End“) und spoilerfreie KI-Einblicke mit „Passt zu deinem Profil“-Score"
     - "App-Report als Markdown/JSON (API-Key wird redacted) – nichts verlässt das Gerät"
-  screenshots: []
   language: Kotlin
   repo: "https://github.com/gschmalzhaf-cell/Gideon-s-B-cherwelt"
   website: ""
@@ -18,6 +18,7 @@
 - name: Gideon's Übersetzer
   icon: "🌐"
   slug: uebersetzer
+  app_icon: "assets/icons/uebersetzer/icon.png"
   description: "Englische PDF-/EPUB-/DOCX-Dokumente lokal ins Deutsche übersetzen und als EPUB für den Tolino erzeugen – offline mit llama.cpp."
   long_description: "Windows-Anwendung, die englischsprachige Dokumente (PDF, EPUB, DOCX) ins Deutsche übersetzt und daraus eine EPUB-Datei für den Tolino-E-Book-Reader erzeugt. Mehrere Dokumente lassen sich als Warteschlange nacheinander abarbeiten (GUI und CLI). Ohne eingeschalteten Online-Betrieb verlässt kein Buchinhalt das Gerät."
   features:
@@ -27,41 +28,33 @@
     - "PySide6-GUI mit Drag & Drop, Fortschrittsbalken, Live-Textprobe, Abbrechen und Erststart-Assistent; CLI mit Warteschlange für mehrere Dokumente"
     - "JSON-Zwischenspeicher: abgebrochene Übersetzungen fortsetzen"
     - "Auto-Update-Prüfung, Diagnose-Report (Markdown + JSON), PyInstaller + Inno-Setup-Installer; CI baut den Installer bei jedem Push"
-  screenshots: []
   language: Python
   repo: "https://github.com/gschmalzhaf-cell/Gideon-s-bersetzer"
   website: ""
 
-- name: Gideon's Autodoc
-  icon: "🎙️"
-  slug: autodoc
-  description: "Open-Source Meeting-Notizen für macOS und Windows: Bildschirmaufnahme, Zeitstempel-Wiedergabe und Ask AI – 100 % lokal auf deinem Rechner."
-  long_description: "Open-Source, local-first Meeting-Notizen für macOS und Windows: Bildschirmaufnahme und Meeting-Audio, bearbeitbare Notizen – und per Klick auf einen Zeitstempel die Wiedergabe genau dieses Moments. Transkription, Notizen und Ask AI laufen lokal auf deinem Rechner. Kein AutoDoc-Konto, kein API-Key, keine Inference-Rechnung."
+- name: Gideon's Notizen
+  icon: "📝"
+  slug: notizen
+  app_icon: "assets/icons/notizen/icon.png"
+  description: "Open-Source Meeting-Notizen für macOS und Windows: Bildschirmaufnahme, Zeitstempel-Wiedergabe, lokale KI und optional Mistral API – kein Konto nötig."
+  long_description: "Local-first Meeting-Notizen für macOS und Windows mit eigenem cozy-blauem Design und eigenem App-Icon: Screen und Meeting-Audio aufnehmen, bearbeitbare Notizen erhalten – per Klick auf einen Zeitstempel springst du zur Wiedergabe genau dieses Moments. Transkription, Notizen und Ask AI laufen lokal auf deinem Rechner (Ollama) oder optional über die Mistral API. Kein Konto, kein API-Key nötig (außer im optionalen Online-Modus)."
   features:
-    - "On-device-Transkription über lokales Ollama – 27 Meeting-Sprachen, keine Netzwerk-Roundtrips für Audio"
+    - "On-device-Transkription über lokales Ollama – 27 Meeting-Sprachen; optional eigener Mistral-API-Key für Notizen & Ask AI"
     - "Multi-Track-Aufnahme: Screen, Mikrofon („Me“) und System-Audio („Them“) als getrennte Streams"
     - "Replay: Klick auf einen Zeitstempel in den Notizen springt zum entsprechenden Videomoment"
-    - "Bearbeitbare Notizen mit Zusammenfassung und Themen; Export als PDF, Word oder Markdown"
-    - "Ask AI über alle Meetings hinweg – vollständig on-device"
+    - "Bearbeitbare Notizen mit wählbaren Protokoll-Typen; Export als PDF, Word oder Markdown"
+    - "Ask AI über alle Meetings hinweg – on-device oder via Mistral API"
     - "Kalender (Google/Microsoft) mit Auto-Record (Off/Once/Series) und Meeting-Erkennung für Zoom, Meet, Teams, Webex, Slack"
-    - "Volltextsuche über alle Transkripte mit Deep-Links zum jeweiligen Moment"
-    - "AES-256-GCM-Verschlüsselung at rest (Schlüssel via macOS Keychain / Windows DPAPI geschützt)"
-  screenshots:
-    - "assets/screenshots/autodoc/notes.png"
-    - "assets/screenshots/autodoc/transcript.png"
-    - "assets/screenshots/autodoc/ask-ai.png"
-    - "assets/screenshots/autodoc/calendar.png"
-    - "assets/screenshots/autodoc/detection.png"
-    - "assets/screenshots/autodoc/export-menu-v1.2.png"
-    - "assets/screenshots/autodoc/windows-notes-v1.2.png"
-    - "assets/screenshots/autodoc/demo.gif"
+    - "Volltextsuche über alle Transkripte mit Deep-Links; AES-256-GCM-Verschlüsselung at rest (Keychain/DPAPI)"
+    - "Fork-Features: Launch-at-Login als sichtbarer Toggle, Ein-Klick-Diagnosebericht (Markdown), In-App-Updates über die Releases dieses Repos"
   language: TypeScript
   repo: "https://github.com/gschmalzhaf-cell/AutoDoc"
-  website: "https://getautodoc.com/"
+  website: ""
 
 - name: Gideon's RömerPlant
   icon: "🌿"
   slug: roemerplant
+  app_icon: "assets/icons/roemerplant/icon.svg"
   description: "Private Android-App für deine Pflanzen: Foto-Erfassung, KI-Bestimmung, Pflegeanweisungen und Gesundheitsanalyse – alles lokal gespeichert."
   long_description: "Private Android-App zur Verwaltung deiner Pflanzen – mit Foto- oder manueller Erfassung, KI-gestützter Bestimmung, Pflegeanweisungen und Gesundheitsanalyse über die Mistral-API (pixtral-12b-latest). Entwickelt für private Nutzung: keine Nutzerkonten, keine Cloud, keine Telemetrie."
   features:
@@ -70,7 +63,6 @@
     - "Alle KI-Felder in der Detailansicht manuell überschreibbar; Gesundheit jederzeit neu analysierbar"
     - "Alle Daten lokal auf dem Gerät (Room, DataStore); API-Key wird ausschließlich lokal gespeichert"
     - "Kotlin 2.x, Jetpack Compose Material 3, MVVM mit StateFlow, Hilt, Retrofit + kotlinx.serialization"
-  screenshots: []
   language: Kotlin
   repo: "https://github.com/gschmalzhaf-cell/PlanzenR-mer"
   website: ""
@@ -78,6 +70,7 @@
 - name: Gideon's Einkaufsliste
   icon: "🛒"
   slug: einkaufsliste
+  app_icon: "assets/icons/einkaufsliste/icon.svg"
   description: "Einfache, private Android-Einkaufsliste – lokal ohne Account. Einträge manuell, per Foto oder direkt aus Rezepten mit exakten Mengen."
   long_description: "Eine einfache, private Android-Einkaufsliste für ein Gerät – komplett lokal in einer Room-Datenbank, ohne Account. Artikel lassen sich manuell eintippen, per Foto einer Liste/Notiz erkennen oder direkt aus einem Rezept (inkl. strukturierter Rezeptdaten mit exakten Mengen) übernehmen."
   features:
@@ -86,7 +79,6 @@
     - "Diagnose-Bericht als kopierbarer Markdown (In-App-Ereignisprotokoll + Absturzaufzeichnung)"
     - "Lokal in Room gespeichert, ohne Account; Material 3 Expressive im Retro-Comic-Look"
     - "Signierte Release-APK automatisch via GitHub Actions bei jedem Push auf main (siehe Releases-Tab)"
-  screenshots: []
   language: Kotlin
   repo: "https://github.com/gschmalzhaf-cell/Einkaufsliste"
   website: ""
@@ -94,6 +86,7 @@
 - name: Gideon's Putzplan
   icon: "🧹"
   slug: putzplan
+  app_icon: "assets/icons/putzplan/icon.svg"
   description: "Native Android-App für den Putzplan – komplett offline. Wochenplan, Lern-Logik für Dauerschätzungen und Foto-Analyse per Mistral Vision."
   long_description: "Native Android-App für den Putzplan – ohne Server, komplett offline-fähig. Alle Daten liegen lokal in einer Room-Datenbank auf dem Gerät. Mit Lern-Logik für realistische Dauerschätzungen und optionaler Foto-Analyse der Wohnung per Mistral Vision."
   features:
@@ -102,7 +95,6 @@
     - "Foto-Analyse mit Mistral Vision: Foto aufnehmen → Aufgaben mit Priorität, Dauer und Hilfsmitteln → per Klick in den Plan übernehmen"
     - "Verlauf & Statistik: erledigte Aufgaben pro Raum, letzte Aktionen"
     - "Komplett offline, alle Daten lokal in Room; signierte Releases automatisch bei Tag-Push (v*) mit generiertem Changelog"
-  screenshots: []
   language: Kotlin
   repo: "https://github.com/gschmalzhaf-cell/putzplan"
   website: ""

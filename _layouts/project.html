@@ -19,7 +19,11 @@
     <a class="back-link" href="{{ '/#projekte' | relative_url }}">← Alle Projekte</a>
 
     <div class="detail-head">
+      {% if p.app_icon and p.app_icon != "" %}
+      <img class="detail-icon-img" src="{{ p.app_icon | relative_url }}" alt="{{ p.name }} – App-Icon">
+      {% else %}
       <div class="card-icon" aria-hidden="true">{{ p.icon }}</div>
+      {% endif %}
       <div>
         <h1>{{ p.name }}</h1>
         <div class="detail-meta">
@@ -43,16 +47,6 @@
     </ul>
     {% endif %}
 
-    {% if p.screenshots and p.screenshots.size > 0 %}
-    <h2>Screenshots</h2>
-    <div class="gallery">
-      {% for shot in p.screenshots %}
-      <a href="{{ shot | relative_url }}" target="_blank" rel="noopener">
-        <img src="{{ shot | relative_url }}" alt="{{ p.name }} – Screenshot" loading="lazy">
-      </a>
-      {% endfor %}
-    </div>
-    {% endif %}
   </main>
 
   {% include footer.html %}
