@@ -1,0 +1,53 @@
+- name: Gideon's Bücherwelt
+  icon: "📚"
+  description: >-
+    Deine persönliche Bücherwelt: Bücher erfassen, ordnen und bewerten –
+    damit kein gutes Buch mehr verloren geht.
+  language: Kotlin
+  repo: "https://github.com/gschmalzhaf-cell/Gideon-s-B-cherwelt"
+  website: ""
+
+- name: Gideon's Übersetzer
+  icon: "🌐"
+  description: >-
+    Texte schnell und zuverlässig in andere Sprachen übersetzen –
+    direkt aus der Konsole.
+  language: Python
+  repo: "https://github.com/gschmalzhaf-cell/Gideon-s-bersetzer"
+  website: ""
+
+- name: Gideon's Autodoc
+  icon: "🎙️"
+  description: >-
+    Open-Source lokale KI-Meeting-Notizen für macOS und Windows:
+    Bildschirmaufnahme, Zeitstempel-Wiedergabe und Ask-AI auf deinem Rechner.
+  language: TypeScript
+  repo: "https://github.com/gschmalzhaf-cell/AutoDoc"
+  website: "https://getautodoc.com/"
+
+- name: Gideon's RömerPlant
+  icon: "🌿"
+  description: >-
+    Erfasse alle deine Pflanzen und erhalte Pflege- und Gedeih-Anweisungen
+    sowie Hinweise zu deinen Pflanzen.
+  language: Kotlin
+  repo: "https://github.com/gschmalzhaf-cell/PlanzenR-mer"
+  website: ""
+
+- name: Gideon's Einkaufsliste
+  icon: "🛒"
+  description: >-
+    Deine Einkaufsliste für unterwegs – übersichtlich gepflegt,
+    damit du nie wieder etwas vergisst.
+  language: Kotlin
+  repo: "https://github.com/gschmalzhaf-cell/Einkaufsliste"
+  website: ""
+
+- name: Gideon's Putzplan
+  icon: "🧹"
+  description: >-
+    Der Putzplan für deinen Haushalt: Aufgaben fair verteilen und den
+    Überblick behalten, wer wann dran ist.
+  language: Kotlin
+  repo: "https://github.com/gschmalzhaf-cell/putzplan"
+  website: ""

@@ -1,0 +1,70 @@
+---
+---
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:title" content="{{ site.title }}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">🛠️ Gideon</a>
+      <nav class="site-nav">
+        <a href="{{ '/#projekte' | relative_url }}">Projekte</a>
+        <a href="https://github.com/gschmalzhaf-cell" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <h1>Gideon's Projekte</h1>
+      <p class="lead">
+        Sechs Werkzeuge für den Alltag – von der Bücherwelt bis zum Putzplan.
+        Alles Open Source auf GitHub.
+      </p>
+    </section>
+
+    <section id="projekte" class="container">
+      <div class="grid">
+        {% for project in site.data.projects %}
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">{{ project.icon }}</div>
+          <h2>{{ project.name }}</h2>
+          <p>{{ project.description }}</p>
+          <div class="card-footer">
+            <span class="badge">{{ project.language }}</span>
+            <div class="card-links">
+              {% if project.website and project.website != "" %}
+              <a class="btn btn-secondary" href="{{ project.website }}" target="_blank" rel="noopener">Website ↗</a>
+              {% endif %}
+              <a class="btn" href="{{ project.repo }}" target="_blank" rel="noopener">Repository ↗</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        Erstellt von
+        <a href="https://github.com/gschmalzhaf-cell" target="_blank" rel="noopener">gschmalzhaf-cell</a>
+        · Powered by
+        <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
