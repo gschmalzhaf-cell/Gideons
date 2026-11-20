@@ -15,6 +15,9 @@ GitHub-Pages-Übersicht über meine Projekte:
 
 ## Aufbau
 
-Die Seite wird mit Jekyll von GitHub Pages gebaut (Quelle: Branch `main`, Pfad `/`).
+Die Seite wird mit Jekyll von GitHub Pages gebaut (Quelle: Branch `gh-pages`, Pfad `/`).
+Änderungen auf `main` vornehmen und nach `gh-pages` pushen –
+der Push löst automatisch einen neuen Pages-Build aus.
+
 Die Projektliste liegt in [`_data/projects.yml`](_data/projects.yml) –
 einfach einen Eintrag hinzufügen, um ein neues Projekt aufzunehmen.
