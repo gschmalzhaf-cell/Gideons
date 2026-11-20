@@ -1,0 +1,43 @@
+name: Optimierungsvorschlaege (monatlich)
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: PyYAML installieren
+        run: pip install pyyaml
+
+      - name: Audit-Bericht erzeugen
+        run: python scripts/audit_site.py > /tmp/audit.md
+
+      - name: Issue aktualisieren oder anlegen
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="[Optimierung] Monatlicher Seiten-Audit"
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title [Optimierung]" --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body-file /tmp/audit.md
+            echo "Bestehendes Issue #$existing kommentiert."
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE $(date +%Y-%m)" --body-file /tmp/audit.md
+            echo "Neues Issue angelegt."
+          fi
