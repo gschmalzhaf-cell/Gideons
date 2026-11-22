@@ -27,11 +27,13 @@ def main():
             findings.append("**%s**: nur %d Feature(s) – Feature-Liste aus dem Repo-README ergaenzen" % (name, len(features)))
         icon = p.get("app_icon") or ""
         if not icon:
-            findings.append("**%s**: kein App-Icon hinterlegt – Icon aus dem Repo (z. B. mipmap / design/app-icon / packaging) unter assets/icons/ ablegen" % name)
+            findings.append("**%s**: kein App-Icon hinterlegt – Icon aus dem Repo unter assets/icons/ ablegen" % name)
         elif not (ROOT / icon).exists():
             findings.append("**%s**: App-Icon-Datei fehlt im Repo: %s" % (name, icon))
-        if not p.get("website"):
-            findings.append("**%s**: keine Website verlinkt – Repo-Homepage oder Demo-Seite nachtragen" % name)
+        if not p.get("platform"):
+            findings.append("**%s**: Plattform-Angabe fehlt in _data/projects.yml" % name)
+        if not p.get("release_version"):
+            findings.append("**%s**: keine Release-Version hinterlegt – scripts/update_projects.py ausfuehren" % name)
         if not str(p.get("repo", "")).startswith("https://github.com/"):
             findings.append("**%s**: Repo-Link fehlt oder ist ungueltig" % name)
         if slug and not (ROOT / "projekte" / slug / "index.html").exists():
@@ -43,6 +45,8 @@ def main():
         findings.append("_config.yml: baseurl ist nicht /Gideons (aktuell: %r)" % config.get("baseurl"))
     if not (ROOT / "404.html").exists():
         findings.append("404.html fehlt")
+    if not (ROOT / "assets/img/og-preview.jpg").exists():
+        findings.append("assets/img/og-preview.jpg (OG-Image) fehlt")
 
     lines = []
     lines.append("Automatischer Audit der GitHub-Pages-Seite vom %s." % datetime.date.today().isoformat())
@@ -57,12 +61,10 @@ def main():
     lines.append("")
     lines.append("## Allgemeine Optimierungsideen")
     lines.append("")
-    lines.append("- [ ] OG-Image (og:image) hinterlegen, damit Links in sozialen Medien eine Vorschaukarte zeigen")
     lines.append("- [ ] Lighthouse-Audit (Performance, Accessibility, SEO) durchfuehren und Ergebnisse umsetzen")
     lines.append("- [ ] Eigenen Domain-Namen (CNAME) fuer die Pages-Seite einrichten")
     lines.append("- [ ] App-Icons bei Rebranding aktualisieren (Quelle: jeweiliges Projekt-Repo)")
-    lines.append("- [ ] Projekt-Kacheln um Release-Version oder Sterne ergaenzen")
-    lines.append("- [ ] Dunkel/Hell-Wechsel als manueller Schalter (aktuell nur prefers-color-scheme)")
+    lines.append("- [ ] App-Screenshots pro Projekt auf den Detailseiten ergaenzen")
     lines.append("")
     print("\n".join(lines))
 

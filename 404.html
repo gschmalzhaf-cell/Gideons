@@ -3,21 +3,19 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>404 – {{ site.title }}</title>
-  <meta http-equiv="refresh" content="4; url={{ '/' | relative_url }}">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% include head.html title="404 – Seite nicht gefunden · Gideon's Projekte" %}
+  <meta http-equiv="refresh" content="5; url={{ '/' | relative_url }}">
 </head>
 <body>
   {% include header.html %}
-  <main class="hero container">
-    <h1>404</h1>
-    <p class="lead">
-      Diese Seite existiert nicht.
-      Du wirst in wenigen Sekunden zur <a href="{{ '/' | relative_url }}">Startseite</a> weitergeleitet.
+  <main class="container not-found">
+    <div class="not-found-code">FEHLER 404</div>
+    <h1>Diese Seite existiert nicht.</h1>
+    <p>
+      Du wirst in wenigen Sekunden automatisch zur Übersicht weitergeleitet – oder klicke
+      direkt auf den Button unten.
     </p>
+    <a class="btn" href="{{ '/' | relative_url }}">Zur Startseite →</a>
   </main>
   {% include footer.html %}
 </body>
