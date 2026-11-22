@@ -1,52 +1,133 @@
 {% assign p = site.data.projects | where: "slug", page.slug | first %}
+{% assign detail_title = p.name | append: " · " | append: site.title %}
+{% assign prev_project = nil %}
+{% assign next_project = nil %}
+{% for item in site.data.projects %}
+  {% if item.slug == page.slug %}
+    {% assign current_idx = forloop.index0 %}
+    {% if current_idx > 0 %}
+      {% assign prev_idx = current_idx | minus: 1 %}
+      {% assign prev_project = site.data.projects[prev_idx] %}
+    {% endif %}
+    {% assign next_idx = current_idx | plus: 1 %}
+    {% if next_idx < site.data.projects.size %}
+      {% assign next_project = site.data.projects[next_idx] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 <!DOCTYPE html>
 <html lang="{{ site.lang }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ p.name }} · {{ site.title }}</title>
-  <meta name="description" content="{{ p.description }}">
-  <meta property="og:title" content="{{ p.name }} · {{ site.title }}">
-  <meta property="og:description" content="{{ p.description }}">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% include head.html title=detail_title description=p.description %}
 </head>
 <body>
   {% include header.html %}
 
   <main class="container detail">
-    <a class="back-link" href="{{ '/#projekte' | relative_url }}">← Alle Projekte</a>
+    <a class="back-link" href="{{ '/#projekte' | relative_url }}">← Zurück zur Übersicht</a>
 
-    <div class="detail-head">
-      {% if p.app_icon and p.app_icon != "" %}
-      <img class="detail-icon-img" src="{{ p.app_icon | relative_url }}" alt="{{ p.name }} – App-Icon">
-      {% else %}
-      <div class="card-icon" aria-hidden="true">{{ p.icon }}</div>
-      {% endif %}
-      <div>
-        <h1>{{ p.name }}</h1>
-        <div class="detail-meta">
-          <span class="badge">{{ p.language }}</span>
-          {% if p.website and p.website != "" %}
-          <a class="btn btn-secondary" href="{{ p.website }}" target="_blank" rel="noopener">Website ↗</a>
+    <section class="detail-hero">
+      <div class="detail-head">
+        {% if p.app_icon and p.app_icon != "" %}
+        <img
+          class="detail-icon-img"
+          src="{{ p.app_icon | relative_url }}"
+          alt="{{ p.name }} – App-Icon"
+          width="92"
+          height="92"
+        >
+        {% else %}
+        <div class="card-icon" aria-hidden="true">{{ p.icon }}</div>
+        {% endif %}
+        <div class="detail-title-wrap">
+          <h1>{{ p.name }}</h1>
+          {% if p.tagline and p.tagline != "" %}
+          <p class="detail-tagline">{{ p.tagline }}</p>
           {% endif %}
-          <a class="btn" href="{{ p.repo }}" target="_blank" rel="noopener">Repository ↗</a>
+          <div class="detail-actions">
+            {% if p.download_url and p.download_url != "" %}
+            <a class="btn" href="{{ p.download_url }}" target="_blank" rel="noopener">
+              {{ p.download_label | default: "Download" }}{% if p.release_version and p.release_version != "" %} ({{ p.release_version }}){% endif %} ↓
+            </a>
+            {% endif %}
+            <a class="btn btn-secondary" href="{{ p.repo }}" target="_blank" rel="noopener">Repository ↗</a>
+            {% if p.release_url and p.release_url != "" %}
+            <a class="btn btn-ghost" href="{{ p.release_url }}" target="_blank" rel="noopener">Release-Notes ↗</a>
+            {% endif %}
+            {% if p.website and p.website != "" %}
+            <a class="btn btn-secondary" href="{{ p.website }}" target="_blank" rel="noopener">Website ↗</a>
+            {% endif %}
+          </div>
         </div>
       </div>
-    </div>
 
-    <p class="detail-lead">{{ p.long_description }}</p>
+      <p class="detail-lead">{{ p.long_description }}</p>
+
+      <div class="facts-bar">
+        <div class="fact-cell">
+          <span class="fact-label">Plattform</span>
+          <span class="fact-value">{{ p.platform | default: "—" }}</span>
+        </div>
+        <div class="fact-cell">
+          <span class="fact-label">Aktuelles Release</span>
+          <span class="fact-value">
+            {% if p.release_version and p.release_version != "" %}
+              {{ p.release_version }}{% if p.release_date and p.release_date != "" %} · {{ p.release_date }}{% endif %}
+            {% else %}
+              Siehe GitHub
+            {% endif %}
+          </span>
+        </div>
+        <div class="fact-cell">
+          <span class="fact-label">Sprache</span>
+          <span class="fact-value">{{ p.language | default: "—" }}</span>
+        </div>
+        <div class="fact-cell">
+          <span class="fact-label">Datenschutz</span>
+          <span class="fact-value">{{ p.privacy | default: "Lokal & Open Source" }}</span>
+        </div>
+      </div>
+    </section>
 
     {% if p.features and p.features.size > 0 %}
-    <h2>Features</h2>
-    <ul class="feature-list">
-      {% for feature in p.features %}
-      <li>{{ feature }}</li>
-      {% endfor %}
-    </ul>
+    <section aria-labelledby="features-heading">
+      <h2 id="features-heading" class="detail-section-title">Funktionen &amp; Highlights</h2>
+      <ul class="feature-grid">
+        {% for feature in p.features %}
+        <li class="feature-card reveal">
+          {% if feature contains ": " %}
+            {% assign parts = feature | split: ": " %}
+            {% assign f_title = parts[0] %}
+            {% assign f_body = feature | remove_first: f_title | remove_first: ": " %}
+            <span class="feature-card-title">{{ f_title }}</span>
+            {{ f_body }}
+          {% else %}
+            {{ feature }}
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
     {% endif %}
 
+    {% if prev_project or next_project %}
+    <nav class="project-pager" aria-label="Weitere Projekte">
+      {% if prev_project %}
+      <a class="pager-link" href="{{ '/projekte/' | append: prev_project.slug | append: '/' | relative_url }}">
+        <span class="pager-dir">← Vorheriges Projekt</span>
+        <span class="pager-name">{{ prev_project.name }}</span>
+      </a>
+      {% else %}
+      <div></div>
+      {% endif %}
+      {% if next_project %}
+      <a class="pager-link pager-link-next" href="{{ '/projekte/' | append: next_project.slug | append: '/' | relative_url }}">
+        <span class="pager-dir">Nächstes Projekt →</span>
+        <span class="pager-name">{{ next_project.name }}</span>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
   </main>
 
   {% include footer.html %}

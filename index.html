@@ -1,54 +1,200 @@
 ---
 ---
+{% assign total_projects = site.data.projects.size %}
+{% assign android_projects = site.data.projects | where: "platform_group", "android" %}
+{% assign desktop_projects = site.data.projects | where: "platform_group", "desktop" %}
 <!DOCTYPE html>
 <html lang="{{ site.lang }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ site.title }}</title>
-  <meta name="description" content="{{ site.description }}">
-  <meta property="og:title" content="{{ site.title }}">
-  <meta property="og:description" content="{{ site.description }}">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% include head.html %}
 </head>
 <body>
   {% include header.html %}
 
   <main>
-    <section class="hero container">
-      <h1>Gideon's Projekte</h1>
-      <p class="lead">
-        Sieben Werkzeuge für den Alltag – von der Bücherwelt bis zum Tamagot(s)chi.
-        Alles Open Source auf GitHub.
-      </p>
-    </section>
-
-    <section id="projekte" class="container">
-      <div class="grid">
-        {% for project in site.data.projects %}
-        <article class="card">
-          {% if project.app_icon and project.app_icon != "" %}
-          <img class="card-icon-img" src="{{ project.app_icon | relative_url }}" alt="{{ project.name }} – App-Icon" loading="lazy">
-          {% else %}
-          <div class="card-icon" aria-hidden="true">{{ project.icon }}</div>
-          {% endif %}
-          <h2>{{ project.name }}</h2>
-          <p>{{ project.description }}</p>
-          <div class="card-footer">
-            <span class="badge">{{ project.language }}</span>
-            <div class="card-links">
-              <a class="btn btn-secondary" href="{{ '/projekte/' | append: project.slug | append: '/' | relative_url }}">Details</a>
-              {% if project.website and project.website != "" %}
-              <a class="btn btn-secondary" href="{{ project.website }}" target="_blank" rel="noopener">Website ↗</a>
-              {% endif %}
-              <a class="btn" href="{{ project.repo }}" target="_blank" rel="noopener">Repository ↗</a>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="hero-kicker">Open-Source-Werkstatt · Lokal zuerst</span>
+          <h1>Durchdachte Apps für den Alltag.</h1>
+          <p class="lead">
+            {{ total_projects }} eigenständige Werkzeuge für Android und Desktop – von der
+            Offline-Bibliothek bis zum Retro-Taschenhaustier. Ohne Konto, ohne Cloud-Zwang
+            und komplett Open Source auf GitHub.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#projekte">Projekte entdecken ↓</a>
+            <a class="btn btn-secondary" href="https://github.com/gschmalzhaf-cell" target="_blank" rel="noopener">GitHub-Profil ↗</a>
+          </div>
+          <div class="hero-stats" aria-label="Überblick">
+            <div class="hero-stat">
+              <span class="hero-stat-value">{{ total_projects }}</span>
+              <span class="hero-stat-label">Open-Source-Apps</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value">{{ android_projects.size }} / {{ desktop_projects.size }}</span>
+              <span class="hero-stat-label">Android / Desktop</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value">100 %</span>
+              <span class="hero-stat-label">Lokal &amp; privat</span>
             </div>
           </div>
-        </article>
-        {% endfor %}
+        </div>
+
+        <div class="hero-visual">
+          <figure class="hero-frame" style="margin: 0;">
+            <img
+              src="{{ '/assets/img/hero-atelier.jpg' | relative_url }}"
+              alt="Illustration von Gideons digitaler Werkstatt mit Buch, Monstera-Pflanze, Notizbuch und Retro-Taschenhaustier"
+              width="1280"
+              height="720"
+            >
+            <figcaption class="hero-caption">
+              <strong>Gideons Atelier</strong>
+              <span>Signierte APK- &amp; Windows-Releases direkt via GitHub</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="projekte" class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Alle Projekte</h2>
+            <p class="section-subtitle" id="project-count">{{ total_projects }} Werkzeuge</p>
+          </div>
+        </div>
+
+        <div class="toolbar" role="region" aria-label="Projekte filtern und suchen">
+          <div class="filter-group" role="group" aria-label="Nach Plattform filtern">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">Alle ({{ total_projects }})</button>
+            <button type="button" class="filter-btn" data-filter="android" aria-pressed="false">Android ({{ android_projects.size }})</button>
+            <button type="button" class="filter-btn" data-filter="desktop" aria-pressed="false">Desktop ({{ desktop_projects.size }})</button>
+          </div>
+          <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <label for="project-search" class="sr-only">Projekte durchsuchen</label>
+            <input
+              id="project-search"
+              class="search-input"
+              type="search"
+              placeholder="Suchen (z. B. EPUB, Pflanzen, KI)…"
+              autocomplete="off"
+            >
+            <span class="search-kbd" aria-hidden="true">/</span>
+          </div>
+        </div>
+
+        <div class="grid" id="project-grid">
+          {% for project in site.data.projects %}
+          {% assign search_blob = project.name | append: ' ' | append: project.tagline | append: ' ' | append: project.description | append: ' ' | append: project.language | append: ' ' | append: project.platform | append: ' ' | append: project.category %}
+          <article
+            class="card reveal"
+            data-project-card
+            data-platform-group="{{ project.platform_group | default: 'other' }}"
+            data-search="{{ search_blob | escape }}"
+          >
+            <div class="card-top">
+              {% if project.app_icon and project.app_icon != "" %}
+              <img
+                class="card-icon-img"
+                src="{{ project.app_icon | relative_url }}"
+                alt="{{ project.name }} – App-Icon"
+                width="58"
+                height="58"
+                loading="lazy"
+              >
+              {% else %}
+              <div class="card-icon" aria-hidden="true">{{ project.icon }}</div>
+              {% endif %}
+              <div class="card-heading">
+                <div class="card-title-row">
+                  <h2>
+                    <a href="{{ '/projekte/' | append: project.slug | append: '/' | relative_url }}">{{ project.name }}</a>
+                  </h2>
+                  {% if project.release_version and project.release_version != "" %}
+                  <span class="version-tag" title="Aktuelles Release">{{ project.release_version }}</span>
+                  {% endif %}
+                </div>
+                {% if project.tagline and project.tagline != "" %}
+                <p class="card-tagline">{{ project.tagline }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+            <p class="card-desc">{{ project.description }}</p>
+
+            <div class="card-meta">
+              {% if project.platform and project.platform != "" %}
+              <span class="badge badge-teal">{{ project.platform }}</span>
+              {% endif %}
+              <span class="badge">{{ project.language }}</span>
+              {% if project.privacy and project.privacy != "" %}
+              <span class="badge">{{ project.privacy }}</span>
+              {% endif %}
+            </div>
+
+            <div class="card-footer">
+              <div class="card-links">
+                <a class="btn btn-sm" href="{{ '/projekte/' | append: project.slug | append: '/' | relative_url }}">Details</a>
+                {% if project.download_url and project.download_url != "" %}
+                <a class="btn btn-secondary btn-sm" href="{{ project.download_url }}" target="_blank" rel="noopener">{{ project.download_label | default: "Download" }} ↓</a>
+                {% endif %}
+              </div>
+              <a class="btn btn-ghost btn-sm" href="{{ project.repo }}" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <h3>Keine passenden Projekte gefunden</h3>
+          <p>Probiere einen anderen Suchbegriff oder setze den Plattform-Filter zurück.</p>
+          <button type="button" id="reset-filters" class="btn btn-secondary btn-sm">Filter zurücksetzen</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="prinzipien" class="principles-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Worauf alle Werkzeuge aufbauen</h2>
+            <p class="section-subtitle">Drei gemeinsame Grundsätze hinter jeder App in dieser Sammlung.</p>
+          </div>
+        </div>
+        <div class="principles-grid">
+          <div class="principle-item reveal">
+            <div class="principle-num">01 · LOKAL ZUERST</div>
+            <h3>Deine Daten bleiben bei dir</h3>
+            <p>
+              Ob Büchersammlung, Pflanzenfotos oder Meeting-Transkripte: Alle Datenbanken laufen
+              direkt auf deinem Gerät – ohne Account-Pflicht und ohne fremde Cloud.
+            </p>
+          </div>
+          <div class="principle-item reveal">
+            <div class="principle-num">02 · OPTIONALE KI</div>
+            <h3>Intelligenz nur auf Wunsch</h3>
+            <p>
+              Wo KI hilft, arbeitet sie offline (Ollama, llama.cpp, ML Kit) oder gezielt mit deinem
+              eigenen API-Key – transparent, abschaltbar und niemals im Hintergrund.
+            </p>
+          </div>
+          <div class="principle-item reveal">
+            <div class="principle-num">03 · OPEN SOURCE</div>
+            <h3>Automatisch &amp; überprüfbar</h3>
+            <p>
+              Quelltext, Releases und signierte Builds entstehen offen über GitHub Actions – mit
+              direktem APK- oder Windows-Installer-Download bei jeder neuen Version.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
