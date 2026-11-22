@@ -8,6 +8,7 @@ GitHub-Pages-Übersicht über meine Projekte:
 - 🌿 [Gideon's RömerPlant](https://github.com/gschmalzhaf-cell/PlanzenR-mer)
 - 🛒 [Gideon's Einkaufsliste](https://github.com/gschmalzhaf-cell/Einkaufsliste)
 - 🧹 [Gideon's Putzplan](https://github.com/gschmalzhaf-cell/putzplan)
+- 🐣 [Gideon's Tamagot(s)chi](https://github.com/gschmalzhaf-cell/Gideon-s-Tamagotschi)
 
 ## Live
 

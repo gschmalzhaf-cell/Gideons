@@ -19,6 +19,7 @@ NAME_MAP = {
     "planzenr-mer": "Gideon's RömerPlant",
     "einkaufsliste": "Gideon's Einkaufsliste",
     "putzplan": "Gideon's Putzplan",
+    "gideon-s-tamagotschi": "Gideon's Tamagot(s)chi",
 }
 
 SLUG_MAP = {
@@ -29,6 +30,7 @@ SLUG_MAP = {
     "planzenr-mer": "roemerplant",
     "einkaufsliste": "einkaufsliste",
     "putzplan": "putzplan",
+    "gideon-s-tamagotschi": "tamagotschi",
 }
 
 ICON_MAP = {
@@ -39,6 +41,7 @@ ICON_MAP = {
     "planzenr-mer": "🌿",
     "einkaufsliste": "🛒",
     "putzplan": "🧹",
+    "gideon-s-tamagotschi": "🐣",
 }
 
 
